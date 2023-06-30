@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Currency
-comment1.params=value
-comment1.target=java.lang.String\ formatCurrency(double)
-comment2.params=value\ currencyChar
-comment2.target=java.lang.String\ formatCurrency(double,\ char)
-comment3.params=value\ decimalPoints
-comment3.target=java.lang.String\ formatNumber(double,\ int)
-numComments=4
