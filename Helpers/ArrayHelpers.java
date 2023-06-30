@@ -1,6 +1,10 @@
 package Helpers;
 
+import java.util.LinkedHashMap;
+
 public class ArrayHelpers {
+    /*public static <TypeIn extends Number, TypeOut extends Number> TypeOut convertNumArr(TypeIn arr) {
+    }*/
     public static double[] mergeSort(double[] arr, boolean ascending) {
         double temp;
         double[][] halves;
@@ -59,6 +63,14 @@ public class ArrayHelpers {
         }
         return -1;
     }
+    public static int findIndex(int[] arr, int elem) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public static int findIndexString(String[] arr, String elem, boolean caseSensitive) {
         if (elem == null) {
             throw new NullPointerException("Element to look up cannot be null");
@@ -81,6 +93,85 @@ public class ArrayHelpers {
             }
         }
         return -1;
+    }
+    public static int highestNumIndex(double[] arr) {
+        int highestNumIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[highestNumIndex] <= arr[i]) {
+                highestNumIndex = i;
+            }
+        }
+        return highestNumIndex;
+    }
+    public static int lowestNumIndex(double[] arr) {
+        int lowestNumIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[lowestNumIndex] >= arr[i]) {
+                lowestNumIndex = i;
+            }
+        }
+        return lowestNumIndex;
+    }
+    public static int highestNumIndex(int[] arr) {
+        int highestNumIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[highestNumIndex] <= arr[i]) {
+                highestNumIndex = i;
+            }
+        }
+        return highestNumIndex;
+    }
+    public static int lowestNumIndex(int[] arr) {
+        int lowestNumIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[lowestNumIndex] >= arr[i]) {
+                lowestNumIndex = i;
+            }
+        }
+        return lowestNumIndex;
+    }
+    public static double average(double[] set) {
+        double total = 0;
+        for (int i = 0; i < set.length; i++) {
+            total += set[i];
+        }
+        return total/set.length;
+    }
+    public static double mode(double[] set) {
+        double[] numArr = new double[set.length];
+        int[] freqArr = new int[set.length];
+        int index;
+        for (int i = 0; i < freqArr.length; i++) {
+            freqArr[i] = 0;
+        }
+        for (int i = 0; i < numArr.length; i++) {
+            index = findIndex(numArr, set[i]);
+            if (index == -1) {
+                numArr[i] = set[i];
+                freqArr[i]++;
+            } else {
+                freqArr[index]++;
+            }
+        }
+        return numArr[highestNumIndex(freqArr)];
+    }
+    public static int mode(int[] set) {
+        int[] numArr = new int[set.length];
+        int[] freqArr = new int[set.length];
+        int index;
+        for (int i = 0; i < freqArr.length; i++) {
+            freqArr[i] = 0;
+        }
+        for (int i = 0; i < numArr.length; i++) {
+            index = findIndex(numArr, set[i]);
+            if (index == -1) {
+                numArr[i] = set[i];
+                freqArr[i]++;
+            } else {
+                freqArr[index]++;
+            }
+        }
+        return numArr[highestNumIndex(freqArr)];
     }
     public static Object[] shuffle(Object[] arr) {
         Object temp;
