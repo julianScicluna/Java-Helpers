@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=ValidatedInput
+comment1.params=doRange\ lowerBound\ upperBound
+comment1.target=int\ readIntWithValidation(boolean,\ int,\ int)
+comment2.params=doRange\ lowerBound\ upperBound
+comment2.target=double\ readDoubleWithValidation(boolean,\ double,\ double)
+comment3.params=
+comment3.target=char\ readCharWithValidation()
+comment4.params=lengthLowerBound\ lengthUpperBound
+comment4.target=java.lang.String\ readStringWithValidation(int,\ int)
+numComments=5

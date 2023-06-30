@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=ArrayHelpers
+comment1.params=arr\ ascending
+comment1.target=double[]\ mergeSort(double[],\ boolean)
+comment10.params=arr1\ arr2
+comment10.target=java.lang.String[]\ join(java.lang.String[],\ java.lang.String[])
+comment2.params=arr\ elem
+comment2.target=int\ findIndex(java.lang.Object[],\ java.lang.Object)
+comment3.params=arr\ elem
+comment3.target=int\ findIndex(double[],\ double)
+comment4.params=arr\ elem\ caseSensitive
+comment4.target=int\ findIndexString(java.lang.String[],\ java.lang.String,\ boolean)
+comment5.params=arr
+comment5.target=java.lang.Object[]\ shuffle(java.lang.Object[])
+comment6.params=arr
+comment6.target=double[]\ shuffle(double[])
+comment7.params=arr\ start\ end
+comment7.target=double[]\ trim(double[],\ int,\ int)
+comment8.params=arr\ start\ end
+comment8.target=java.lang.String[]\ trim(java.lang.String[],\ int,\ int)
+comment9.params=arr1\ arr2
+comment9.target=double[]\ join(double[],\ double[])
+numComments=11
