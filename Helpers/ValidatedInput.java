@@ -1,7 +1,7 @@
 package Helpers;
 
 public class ValidatedInput {
-    public int readIntWithValidation(boolean doRange, int lowerBound, int upperBound) {
+    public static int readIntWithValidation(boolean doRange, int lowerBound, int upperBound) {
         int userInput = 0;
         boolean badInput;
         do {
@@ -11,7 +11,13 @@ public class ValidatedInput {
                 if (doRange) {
                     if (userInput < lowerBound || userInput > upperBound) {
                         badInput = true;
-                        System.out.println("The number you have entered, '" + userInput + "', is out of range, which is between '" + lowerBound + "' and '" + upperBound + "'. Please try again.");
+                        if (userInput < lowerBound && upperBound == 2147483647) {
+                            System.out.println("The number must be at least '" + lowerBound + "'. Please try again.");
+                        } else if (userInput > upperBound && lowerBound == -2147483647) {
+                            System.out.println("The number must be at most '" + upperBound + "'. Please try again.");
+                        } else {
+                            System.out.println("The number you have entered, '" + userInput + "', is out of range, which is between '" + lowerBound + "' and '" + upperBound + "'. Please try again.");
+                        }
                     }
                 }
             } catch (NumberFormatException nfe) {
@@ -21,27 +27,33 @@ public class ValidatedInput {
         } while (badInput);
         return userInput;
     }
-    public double readDoubleWithValidation(boolean doRange, double lowerBound, double upperBound) {
+    public static double readDoubleWithValidation(boolean doRange, double lowerBound, double upperBound) {
         double userInput = 0;
         boolean badInput;
         do {
             badInput = false;
             try {
-                userInput = Keyboard.readInt();
+                userInput = Keyboard.readDouble();
                 if (doRange) {
                     if (userInput < lowerBound || userInput > upperBound) {
                         badInput = true;
-                        System.out.println("The number you have entered, '" + userInput + "', is out of range, which is between '" + lowerBound + "' and '" + upperBound + "'. Please try again.");
+                        if (userInput < lowerBound && upperBound == Double.POSITIVE_INFINITY) {
+                            System.out.println("The number must be at least '" + lowerBound + "'. Please try again.");
+                        } else if (userInput > upperBound && lowerBound == Double.NEGATIVE_INFINITY) {
+                            System.out.println("The number must be at most '" + upperBound + "'. Please try again.");
+                        } else {
+                            System.out.println("The number you have entered, '" + userInput + "', is out of range, which is between '" + lowerBound + "' and '" + upperBound + "'. Please try again.");
+                        }
                     }
                 }
             } catch (NumberFormatException nfe) {
                 badInput = true;
-                System.out.println("Only INTEGERS within the 32-bit limit are accepted. That means NO LETTERS or decimal points. Try again!");
+                System.out.println("Only NUMBERS are accepted (decimal (non-whole) numbers are accepted). That means no LETTERS. Try again!");
             }
         } while (badInput);
         return userInput;
     }
-    public char readCharWithValidation() {
+    public static char readCharWithValidation() {
         String userInput;
         boolean badInput;
         do {
@@ -54,7 +66,7 @@ public class ValidatedInput {
         } while (badInput);
         return userInput.charAt(0);
     }
-    public String readStringWithValidation(int lengthLowerBound, int lengthUpperBound) {
+    public static String readStringWithValidation(int lengthLowerBound, int lengthUpperBound) {
         boolean badInput;
         String userInput;
         if (lengthLowerBound < 0) {
