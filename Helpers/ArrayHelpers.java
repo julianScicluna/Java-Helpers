@@ -1,10 +1,113 @@
 package Helpers;
 
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.lang.reflect.Array;
 
 public class ArrayHelpers {
     /*public static <TypeIn extends Number, TypeOut extends Number> TypeOut convertNumArr(TypeIn arr) {
     }*/
+    public static void main(double[] args) {
+        Debug.printCollection(quickSort(args, true), false);
+    }
+    private static double[] quickSort(double[] arr, boolean ascending, int from, int to) {
+        double temp;
+        int numBiggerThanPivot = 0;
+        int pivotIndex = from + (to - from)/2;
+        for (int i = from; i < /*from + (to - from)/2*/ to; i++) {
+            if (ascending) {
+                if (arr[i] > arr[pivotIndex]) {
+                    /*temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;*/
+                    numBiggerThanPivot++;
+                }
+            } else {
+                if (arr[i] < arr[pivotIndex]) {
+                    /*temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;*/
+                    numBiggerThanPivot++;
+                }
+            }
+        }
+        /*for (int i = from + (to - from)/2; i < to; i++) {
+            if (ascending) {
+                if (arr[i] < arr[pivotIndex]) {
+                    temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;
+                }
+            } else {
+                if (arr[i] > arr[pivotIndex]) {
+                    temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;
+                }
+            }
+        }*/
+        System.out.println(numBiggerThanPivot + ", " + from + ", " + to);
+        temp = arr[pivotIndex];
+        arr[pivotIndex] = arr[arr.length - 1 - numBiggerThanPivot];
+        arr[arr.length - 1 - numBiggerThanPivot] = temp;
+        if (to - from > 1) {
+            ArrayHelpers.quickSort(arr, ascending, from, to - numBiggerThanPivot);
+            ArrayHelpers.quickSort(arr, ascending, to - numBiggerThanPivot, to);
+        }
+        return arr;
+    }
+    public static double[] quickSort(double[] arr, boolean ascending) {
+        double temp;
+        int pivotIndex = arr.length/2;
+        int numBiggerThanPivot = 0;
+        for (int i = 0; i < arr.length/*/2*/; i++) {
+            if (ascending) {
+                if (arr[i] > arr[pivotIndex]) {
+                    /*temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;*/
+                    numBiggerThanPivot++;
+                }
+            } else {
+                if (arr[i] < arr[pivotIndex]) {
+                    /*temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;*/
+                    numBiggerThanPivot++;
+                }
+            }
+        }
+        /*for (int i = arr.length/2; i < arr.length; i++) {
+            if (ascending) {
+                if (arr[i] < arr[pivotIndex]) {
+                    temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;
+                }
+            } else {
+                if (arr[i] > arr[pivotIndex]) {
+                    temp = arr[pivotIndex];
+                    arr[pivotIndex] = arr[i];
+                    arr[i] = temp;
+                    pivotIndex = i;
+                }
+            }
+        }*/
+        System.out.println();
+        if (arr.length > 1) {
+            ArrayHelpers.quickSort(arr, ascending, 0, arr.length - 1 - numBiggerThanPivot);
+            ArrayHelpers.quickSort(arr, ascending, arr.length - numBiggerThanPivot, arr.length - 1);
+        }
+        return arr;
+    }
     public static double[] mergeSort(double[] arr, boolean ascending) {
         double temp;
         double[][] halves;
@@ -41,13 +144,99 @@ public class ArrayHelpers {
         }
         return arr;
     }
-    public static int findIndex(Object[] arr, Object elem) {
+    public static int[] mergeSort(int[] arr, boolean ascending) {
+        int temp;
+        int[][] halves;
+        int[] indicesReached = new int[] {0, 0};
+        if (arr.length > 1) {
+            halves = new int[][] {mergeSort(trim(arr, 0, arr.length/2), ascending), mergeSort(trim(arr, arr.length/2, arr.length), ascending)};
+            for (int i = 0; i < arr.length; i++) {
+                if (indicesReached[0] >= halves[0].length && !(indicesReached[1] >= halves[1].length)) {
+                    arr[i] = halves[1][indicesReached[1]];
+                    indicesReached[1]++;
+                } else if (indicesReached[1] >= halves[1].length && !(indicesReached[0] >= halves[0].length)) {
+                    arr[i] = halves[0][indicesReached[0]];
+                    indicesReached[0]++;
+                } else if (indicesReached[0] < halves[0].length && indicesReached[1] < halves[1].length) {
+                    if (ascending) {
+                        if (halves[0][indicesReached[0]] <= halves[1][indicesReached[1]]) {
+                            arr[i] = halves[0][indicesReached[0]];
+                            indicesReached[0]++;
+                        } else if (halves[0][indicesReached[0]] >= halves[1][indicesReached[1]]) {
+                            arr[i] = halves[1][indicesReached[1]];
+                            indicesReached[1]++;
+                        }
+                    } else {
+                        if (halves[0][indicesReached[0]] >= halves[1][indicesReached[1]]) {
+                            arr[i] = halves[0][indicesReached[0]];
+                            indicesReached[0]++;
+                        } else if (halves[0][indicesReached[0]] <= halves[1][indicesReached[1]]) {
+                            arr[i] = halves[1][indicesReached[1]];
+                            indicesReached[1]++;
+                        }
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+    public static int[] bubbleSort(int[] arr, boolean ascending) {
+        boolean noShiftsInPass;
+        int temp;
+        do {
+            noShiftsInPass = true;
+            for (int i = 0; i < arr.length; i++) {
+                if (ascending) {
+                    if (arr[i] > arr[i + 1]) {
+                        temp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = temp;
+                        noShiftsInPass = false;
+                    }
+                } else {
+                    if (arr[i] < arr[i + 1]) {
+                        temp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = temp;
+                        noShiftsInPass = false;
+                    }
+                }
+            }
+        } while (!noShiftsInPass);
+        return arr;
+    }
+    public static double[] bubbleSort(double[] arr, boolean ascending) {
+        boolean noShiftsInPass;
+        double temp;
+        do {
+            noShiftsInPass = true;
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (ascending) {
+                    if (arr[i] > arr[i + 1]) {
+                        temp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = temp;
+                        noShiftsInPass = false;
+                    }
+                } else {
+                    if (arr[i] < arr[i + 1]) {
+                        temp = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = temp;
+                        noShiftsInPass = false;
+                    }
+                }
+            }
+        } while (!noShiftsInPass);
+        return arr;
+    }
+    public static <T> int findIndex(T[] arr, T elem) {
         if (elem == null) {
             throw new NullPointerException("Element to look up cannot be null");
         }
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
-                continue;
+                throw new NullPointerException("Element in array cannot be null");
             }
             if (arr[i].equals(elem)) {
                 return i;
@@ -55,8 +244,51 @@ public class ArrayHelpers {
         }
         return -1;
     }
+    public static <T> int findIndex(T[] arr, T elem, int from, int to) {
+        if (elem == null) {
+            throw new NullPointerException("Element to look up cannot be null");
+        } else if (to < from) {
+            throw new IllegalArgumentException("The end cannot be before the start");
+        }
+        for (int i = from; i < to; i++) {
+            if (arr[i] == null) {
+                throw new NullPointerException("Element in array cannot be null");
+            }
+            if (arr[i].equals(elem)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int findIndex(char[] arr, char elem) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int findIndex(char[] arr, char elem, int from, int to) {
+        for (int i = from; i < to; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public static int findIndex(double[] arr, double elem) {
         for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int findIndex(double[] arr, double elem, int from, int to) {
+        if (to < from) {
+            throw new IllegalArgumentException("The end cannot be before the start");
+        }
+        for (int i = from; i < to; i++) {
             if (arr[i] == elem) {
                 return i;
             }
@@ -71,6 +303,17 @@ public class ArrayHelpers {
         }
         return -1;
     }
+    public static int findIndex(int[] arr, int elem, int from, int to) {
+        if (to < from) {
+            throw new IllegalArgumentException("The end cannot be before the start");
+        }
+        for (int i = from; i < to; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public static int findIndexString(String[] arr, String elem, boolean caseSensitive) {
         if (elem == null) {
             throw new NullPointerException("Element to look up cannot be null");
@@ -79,6 +322,31 @@ public class ArrayHelpers {
             elem = elem.toLowerCase();
         }
         for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                continue;
+            }
+            if (caseSensitive) {
+                if (arr[i].equals(elem)) {
+                    return i;
+                }
+            } else {
+                if (arr[i].toLowerCase().equals(elem)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    public static int findIndexString(String[] arr, String elem, boolean caseSensitive, int from, int to) {
+        if (elem == null) {
+            throw new NullPointerException("Element to look up cannot be null");
+        } else if (to < from) {
+            throw new IllegalArgumentException("The end cannot be before the start");
+        }
+        if (!caseSensitive) {
+            elem = elem.toLowerCase();
+        }
+        for (int i = from; i < to; i++) {
             if (arr[i] == null) {
                 continue;
             }
@@ -173,8 +441,8 @@ public class ArrayHelpers {
         }
         return numArr[highestNumIndex(freqArr)];
     }
-    public static Object[] shuffle(Object[] arr) {
-        Object temp;
+    public static <T> T[] shuffle(T[] arr) {
+        T temp;
         int randomIndex;
         for (int i = arr.length - 1; i > 0; i--) {
             do {
@@ -199,21 +467,44 @@ public class ArrayHelpers {
         }
         return arr;
     }
-    public static double[] trim(double[] arr, int start, int end) {
-        if (end <= start) {
-            throw new IllegalArgumentException("End position before starting position");
+    public static int[] shuffle(int[] arr) {
+        int temp;
+        int randomIndex;
+        for (int i = arr.length - 1; i > 0; i--) {
+            do {
+                randomIndex = (int) (Math.random() * arr.length);
+            } while (randomIndex == i);
+            temp = arr[i];
+            arr[i] = arr[randomIndex];
+            arr[randomIndex] = temp;
         }
-        double[] newArr = new double[end - start];
+        return arr;
+    }
+    public static <T> T[] trim(T[] arr, int start, int end) {
+        if (end <= start) {
+            throw new IllegalArgumentException("End position at or before starting position");
+        }
+        T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType(), end - start);
+        for (int i = 0; i < end - start; i++) {
+            newArr[i] = arr[i + start];
+        }
+        return (T[]) newArr;
+    }
+    public static int[] trim(int[] arr, int start, int end) {
+        if (end <= start) {
+            throw new IllegalArgumentException("End position at or before starting position");
+        }
+        int[] newArr = new int[end - start];
         for (int i = 0; i < end - start; i++) {
             newArr[i] = arr[i + start];
         }
         return newArr;
     }
-    public static String[] trim(String[] arr, int start, int end) {
+    public static double[] trim(double[] arr, int start, int end) {
         if (end <= start) {
             throw new IllegalArgumentException("End position at or before starting position");
         }
-        String[] newArr = new String[end - start];
+        double[] newArr = new double[end - start];
         for (int i = 0; i < end - start; i++) {
             newArr[i] = arr[i + start];
         }
@@ -229,8 +520,18 @@ public class ArrayHelpers {
         }
         return joinedArr;
     }
-    public static String[] join(String[] arr1, String[] arr2) {
-        String[] joinedArr = new String[arr1.length + arr2.length];
+    public static int[] join(int[] arr1, int[] arr2) {
+        int[] joinedArr = new int[arr1.length + arr2.length];
+        for (int i = 0; i < arr1.length; i++) {
+            joinedArr[i] = arr1[i];
+        }
+        for (int i = 0; i < arr2.length; i++) {
+            joinedArr[arr1.length + i] = arr2[i];
+        }
+        return joinedArr;
+    }
+    public static <T> T[] join(T[] arr1, T[] arr2) {
+        T[] joinedArr = (T[]) Array.newInstance(arr1.getClass().getComponentType(), arr1.length + arr2.length);
         for (int i = 0; i < arr1.length; i++) {
             joinedArr[i] = arr1[i];
         }

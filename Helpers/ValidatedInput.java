@@ -63,8 +63,15 @@ public class ValidatedInput {
                 badInput = true;
                 System.out.println("Only single characters are allowed. Try again!");
             }
+            try {
+                return userInput.charAt(0);
+            } catch (StringIndexOutOfBoundsException e) {
+                badInput = true;
+                System.out.println("No empty inputs are allowed. Try again!");
+            }
         } while (badInput);
-        return userInput.charAt(0);
+        //Effectively unreachable - make it any character - It wouldn't really matter
+        return ' ';
     }
     public static String readStringWithValidation(int lengthLowerBound, int lengthUpperBound) {
         boolean badInput;
