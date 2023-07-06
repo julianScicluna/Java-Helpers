@@ -6,22 +6,17 @@ import java.util.LinkedList;
 import java.lang.reflect.Array;
 
 public class ArrayHelpers {
-    /*public static <TypeIn extends Number, TypeOut extends Number> TypeOut convertNumArr(TypeIn arr) {
-    }*/
-    public static void main(double[] args) {
-        Debug.printCollection(quickSort(args, true), false);
-    }
-    private static double[] quickSort(double[] arr, boolean ascending, int from, int to) {
+    /*private static double[] quickSort(double[] arr, boolean ascending, int from, int to) {
         double temp;
         int numBiggerThanPivot = 0;
         int pivotIndex = from + (to - from)/2;
-        for (int i = from; i < /*from + (to - from)/2*/ to; i++) {
+        for (int i = from; i < /*from + (to - from)/2* / to; i++) {
             if (ascending) {
                 if (arr[i] > arr[pivotIndex]) {
                     /*temp = arr[pivotIndex];
                     arr[pivotIndex] = arr[i];
                     arr[i] = temp;
-                    pivotIndex = i;*/
+                    pivotIndex = i;* /
                     numBiggerThanPivot++;
                 }
             } else {
@@ -29,7 +24,7 @@ public class ArrayHelpers {
                     /*temp = arr[pivotIndex];
                     arr[pivotIndex] = arr[i];
                     arr[i] = temp;
-                    pivotIndex = i;*/
+                    pivotIndex = i;* /
                     numBiggerThanPivot++;
                 }
             }
@@ -50,7 +45,7 @@ public class ArrayHelpers {
                     pivotIndex = i;
                 }
             }
-        }*/
+        }* /
         System.out.println(numBiggerThanPivot + ", " + from + ", " + to);
         temp = arr[pivotIndex];
         arr[pivotIndex] = arr[arr.length - 1 - numBiggerThanPivot];
@@ -65,13 +60,13 @@ public class ArrayHelpers {
         double temp;
         int pivotIndex = arr.length/2;
         int numBiggerThanPivot = 0;
-        for (int i = 0; i < arr.length/*/2*/; i++) {
+        for (int i = 0; i < arr.length/* /2* /; i++) {
             if (ascending) {
                 if (arr[i] > arr[pivotIndex]) {
                     /*temp = arr[pivotIndex];
                     arr[pivotIndex] = arr[i];
                     arr[i] = temp;
-                    pivotIndex = i;*/
+                    pivotIndex = i;* /
                     numBiggerThanPivot++;
                 }
             } else {
@@ -79,7 +74,7 @@ public class ArrayHelpers {
                     /*temp = arr[pivotIndex];
                     arr[pivotIndex] = arr[i];
                     arr[i] = temp;
-                    pivotIndex = i;*/
+                    pivotIndex = i;* /
                     numBiggerThanPivot++;
                 }
             }
@@ -100,14 +95,14 @@ public class ArrayHelpers {
                     pivotIndex = i;
                 }
             }
-        }*/
+        }* /
         System.out.println();
         if (arr.length > 1) {
             ArrayHelpers.quickSort(arr, ascending, 0, arr.length - 1 - numBiggerThanPivot);
             ArrayHelpers.quickSort(arr, ascending, arr.length - numBiggerThanPivot, arr.length - 1);
         }
         return arr;
-    }
+    }*/
     public static double[] mergeSort(double[] arr, boolean ascending) {
         double temp;
         double[][] halves;
