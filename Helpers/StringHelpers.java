@@ -4,24 +4,33 @@ import java.util.LinkedHashSet;
 
 public class StringHelpers {
     public static String removeDuplicateChars(String str) {
+        //StringBuilder for dynamic and efficient adding of chars/strings to a string
         StringBuilder sb = new StringBuilder("");
+        //Linked hash set to create an ordered set of the characters in a string, with any duplicates (values with equal hashes) overriding the last identical entry
         LinkedHashSet<Character> chars = new LinkedHashSet<Character>();
+        //Iterate through the string and add all of its chars to the linked hash set
         for (int i = 0; i < str.length(); i++) {
             chars.add(str.charAt(i));
         }
+        //chars can NEVER have ANY exact duplicate characters, EVER. Add the list's contents to the StringBuilder
         for (char c : chars) {
             sb.append(c);
         }
+        //Return the contents of the StringBuilder
         return sb.toString();
     }
+    //Deprecated - use new String().valueOf() instead
     public static String charArrToString(char[] arr) {
+        //StringBuilder for dynamic and efficient adding of chars/strings to a string
         StringBuilder sb = new StringBuilder("");
+        //Shorthand syntax to iterate through a char array and get each entry
         for (char c : arr) {
+            //Add each and every character to the char array
             sb.append(c);
         }
+        //Return the contents of the StringBuilder
         return sb.toString();
     }
-    //Deprecated - use new String().valueOf() instead;
     public static String shiftCharCodes(String str, int shiftOffset) {
         //Declare stringbuilder to store generated encrypted string - MUCH better performance when adding strings/chars
         StringBuilder sb = new StringBuilder("");
@@ -62,14 +71,24 @@ public class StringHelpers {
         return sb.toString();
     }
     public static String shift(String str, int shiftNum) {
+        //Inform the user to avoid possible confusion
+        if (shiftNum > str.length()) {
+            System.out.println("WARNING (from StringHelpers.shift(String, int)): The shifting offset exceeds the string's length. Its modulus will be used instead.");
+        }
+        //Shift num should never exceed the string's length - avoiding any errors
         shiftNum %= str.length();
+        
+        //StringBuilder for dynamic and efficient adding of chars/strings to a string
         StringBuilder sb = new StringBuilder("");
         if (shiftNum < 0) {
+            //Handling backward shifts
             for (int i = 0; i < str.length(); i++) {
                 sb.append(str.charAt((i - shiftNum) % str.length()));
             }
         } else {
+            //Handling forward shifts
             for (int i = 0; i < str.length(); i++) {
+                //Forward shift n places gives the same result as backward shift (strlength - n) places
                 sb.append(str.charAt((i + str.length() - shiftNum) % str.length()));
             }
         }
